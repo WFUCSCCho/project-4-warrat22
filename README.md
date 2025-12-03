@@ -82,20 +82,27 @@ it to this repository.
 
 Insertion, search, and deletion running time (already sorted):
 
-![Firefly picture of a cat 86147](https://github.com/user-attachments/assets/8b2d008e-3011-4979-97b8-fa2e9886a01a)
-
+![](Sorted_Hash_Comparison.png)
 
 Insertion, search, and deletion running time (shuffled):
+![](Shuffled_Hash_Comparison.png)
 
 Insertion, search, and deletion running time (reversed):
+![](Reversed_Hash_Comparison.png)
 
 ## 5. **Document your Dataset and Results**
 Document the source of your dataset and any modifications you made to it. Describe the results of your analysis and 
 how it compares to the theoretical performance of the hash table operations.
 
-Dataset Source: // FINISH ME
-Dataset Modifications ("None" if unchanged): // FINISH ME
-Result Analysis: // FINISH ME
+Dataset Source: https://www.kaggle.com/datasets/andrewmvd/sp-500-stocks
+
+Dataset Modifications ("None" if unchanged): I limited the columns to include just the symbol and the price, but
+no specific values were modified and the number of rows is the same
+
+Result Analysis: Hash tables using separate chaining have theoretical time complexities of O(c) for a constant c for 
+insert, delete, and remove, since each operation ideally examines only a single bucket. In my results, the time taken to perform 
+each function generally increased at a slow pace as N increased, almost resembling  O(N) time complexity, but not quite reaching that growth. 
+While there is a general increasing trend with N, the deviation from O(c) is not significant.
 
 ## Submission:
 

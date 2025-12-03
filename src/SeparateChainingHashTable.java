@@ -38,7 +38,13 @@ public class SeparateChainingHashTable<AnyType> {
      * @param x the item to insert.
      */
     public void insert(AnyType x) {
-        // FINISH ME
+        List<AnyType> whichList = theLists [myhash(x)];
+        if (!whichList.contains(x)){
+            whichList.add(x);
+
+            if (++currentSize > theLists.length)
+                rehash();
+        }
     }
 
     /**
@@ -47,24 +53,33 @@ public class SeparateChainingHashTable<AnyType> {
      * @param x the item to remove.
      */
     public void remove(AnyType x) {
-        // FINISH ME
+        List<AnyType> whichList = theLists[myhash(x)];
+        if (whichList.contains(x)){
+            whichList.remove(x);
+            currentSize--;
+        }
     }
 
     /**
      * Find an item in the hash table.
      *
      * @param x the item to search for.
-     * @return true if x is not found.
+     * @return true if x is found.
      */
     public boolean contains(AnyType x) {
-        // FINISH ME
+        List<AnyType> whichList = theLists[myhash(x)];
+        return whichList.contains(x);
     }
 
     /**
      * Make the hash table logically empty.
      */
     public void makeEmpty() {
-        // FINISH ME
+        for (int i = 0; i < theLists.length; i++){
+            theLists[i].clear();
+        }
+        currentSize = 0;
+
     }
 
     /**
@@ -88,7 +103,22 @@ public class SeparateChainingHashTable<AnyType> {
     }
 
     private void rehash() {
-        // FINISH ME
+        // Save old table
+        List<AnyType>[] oldLists = theLists;
+
+        // Create new table: roughly double size, rounded up to next prime
+        theLists = new LinkedList[nextPrime(2 * oldLists.length)];
+        for (int i = 0; i < theLists.length; i++) {
+            theLists[i] = new LinkedList<>();
+        }
+
+        // Reset size and reinsert everything
+        currentSize = 0;
+        for (List<AnyType> list : oldLists) {
+            for (AnyType x : list) {
+                insert(x);
+            }
+        }
     }
 
     private int myhash(AnyType x) {
